@@ -7,69 +7,69 @@ app.use(express.json());
 app.use(cors());
 
 // Sample data
-var gadgets = [
-  { id: 1, name: "Smartphone", model: "Galaxy S23", year: 2023 },
+var stationery = [
+  { id: 1, name: "DOMS Neon Pencil", color: "Orange", qty: 100 },
 ];
 
 // Default route
 app.get("/", (req, res) => {
-  res.send("Welcome to the Gadget Inventory API 🚀");
+  res.send("Welcome to the Stationery Store API🚀");
 });
 
 // Get all gadgets
-app.get("/gadgets", (req, res) => {
-  res.json(gadgets);
+app.get("/stationery", (req, res) => {
+  res.json(stationery);
 });
 
 // Get gadget by ID
-app.get("/gadgets/:gid", (req, res) => {
-  const id = parseInt(req.params.gid);
-  const gadget = gadgets.find((g) => g.id === id);
+app.get("/stationery/:sid", (req, res) => {
+  const id = parseInt(req.params.sid);
+  const stationery = stationery.find((s) => s.id === id);
 
-  if (gadget) {
-    res.json(gadget);
+  if (stationery) {
+    res.json(stationery);
   } else {
-    res.status(404).json({ msg: "Gadget not found" });
+    res.status(404).json({ msg: "Stationery Item not found! :(" });
   }
 });
 
 // Add new gadget
-app.post("/gadgets", (req, res) => {
-  const { id, name, model, year } = req.body;
-  const newGadget = { id, name, model, year };
+app.post("/stationery", (req, res) => {
+  const { id, name, color, qty } = req.body;
+  const newStationery = { id, name, color, qty };
 
-  gadgets.push(newGadget);
-  res.json({ gadget: newGadget, msg: "Gadget added successfully ✅" });
+  stationery.push(newStationery);
+  res.json({ stationery: newStationery, msg: "Item added successfully! :) " });
 });
 
 // Update gadget
-app.put("/gadgets/:gid", (req, res) => {
-  const id = parseInt(req.params.gid);
-  const { name, model, year } = req.body;
+app.put("/stationery/:sid", (req, res) => {
+  const id = parseInt(req.params.sid);
+  const { name, color, qty } = req.body;
 
-  const gadgetIndex = gadgets.findIndex((g) => g.id === id);
+  const stationeryIndex = stationery.findIndex((s) => s.id === id);
 
-  if (gadgetIndex !== -1) {
-    gadgets[gadgetIndex] = { ...gadgets[gadgetIndex], name, model, year };
-    res.json({ updatedGadget: gadgets[gadgetIndex], msg: "Gadget updated successfully 🔧" });
+  if (stationeryIndex !== -1) {
+    stationery[stationeryIndex] = { ...stationery[stationeryIndex], name, color, qty };
+    res.json({ updatedStationery: stationery[stationeryIndex], msg: "Item updated successfully! :))" });
   } else {
-    res.status(404).json({ msg: "Gadget not found" });
+    res.status(404).json({ msg: "Item not found! Oops :(" });
   }
 });
 
 // Delete gadget
-app.delete("/gadgets/:gid", (req, res) => {
-  const id = parseInt(req.params.gid);
-  const gadgetIndex = gadgets.findIndex((g) => g.id === id);
+app.delete("/stationery/:sid", (req, res) => {
+  const id = parseInt(req.params.sid);
+  const stationeryIndex = stationery.findIndex((s) => s.id === id);
 
-  if (gadgetIndex !== -1) {
-    gadgets.splice(gadgetIndex, 1);
-    res.json({ msg: "Gadget deleted successfully 🗑️" });
+  if (stationeryIndex !== -1) {
+    stationery.splice(stationeryIndex, 1);
+    res.json({ msg: "Item deleted successfully! XD 🗑️" });
   } else {
-    res.status(404).json({ msg: "Gadget not found" });
+    res.status(404).json({ msg: "Item not found!" });
   }
 });
 
 app.listen(3000, () => {
-  console.log("🚀 Server started on port 3000");
+  console.log("🚀 Server running on port 3000");
 });
