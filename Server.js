@@ -8,7 +8,10 @@ app.use(cors());
 
 // Sample data
 var stationery = [
-  { id: 1, name: "DOMS Neon Pencil", color: "Orange", qty: 100 },
+    {id: 1, name: "DOMS Neon Pencil", color: "Orange", qty: 10},
+    {id: 2, name: "Reynold Trimax", color: "Blue", qty: 170},
+    {id: 3, name: "Pentonic Gel 2.0", color: "Black", qty: 120},
+   
 ];
 
 // Default route
@@ -24,10 +27,10 @@ app.get("/stationery", (req, res) => {
 // Get gadget by ID
 app.get("/stationery/:sid", (req, res) => {
   const id = parseInt(req.params.sid);
-  const stationery = stationery.find((s) => s.id === id);
+  const item = stationery.find((s) => s.id === id);
 
-  if (stationery) {
-    res.json(stationery);
+  if (item) {
+    res.json(item);
   } else {
     res.status(404).json({ msg: "Stationery Item not found! :(" });
   }
@@ -47,11 +50,11 @@ app.put("/stationery/:sid", (req, res) => {
   const id = parseInt(req.params.sid);
   const { name, color, qty } = req.body;
 
-  const stationeryIndex = stationery.findIndex((s) => s.id === id);
+  const index = stationery.findIndex((s) => s.id === id);
 
-  if (stationeryIndex !== -1) {
-    stationery[stationeryIndex] = { ...stationery[stationeryIndex], name, color, qty };
-    res.json({ updatedStationery: stationery[stationeryIndex], msg: "Item updated successfully! :))" });
+  if (index !== -1) {
+    stationery[index] = { ...stationery[index], name, color, qty };
+    res.json({ updatedStationery: stationery[index], msg: "Item updated successfully! :))" });
   } else {
     res.status(404).json({ msg: "Item not found! Oops :(" });
   }
