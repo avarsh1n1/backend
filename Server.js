@@ -50,7 +50,7 @@ app.put("/stationery/:sid", (req, res) => {
   const id = parseInt(req.params.sid);
   const { name, color, qty } = req.body;
 
-  const index = stationery.findIndex((s) => s.id === id);
+  const index = stationery.findIndex((s) => s.id == id);
 
   if (index !== -1) {
     stationery[index] = { ...stationery[index], name, color, qty };
@@ -63,7 +63,7 @@ app.put("/stationery/:sid", (req, res) => {
 // Delete gadget
 app.delete("/stationery/:sid", (req, res) => {
   const id = parseInt(req.params.sid);
-  const stationeryIndex = stationery.findIndex((s) => s.id === id);
+  const stationeryIndex = stationery.findIndex((s) => s.id == id);
 
   if (stationeryIndex !== -1) {
     stationery.splice(stationeryIndex, 1);
